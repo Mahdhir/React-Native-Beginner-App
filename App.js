@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {BackHandler} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
 import {
   Container, Header, Title,
   Content, Footer, FooterTab, Button,
   Left, Right, Body, Icon, Text, Item,
-  Input
+  Input,View
 } from 'native-base';
 
 import ListItemComponent from './src/components/ListItem/ListItem';
@@ -13,6 +15,8 @@ import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
 
 
 class App extends Component {
+
+
   state = {
     currentInput: '',
     places: [],
@@ -114,6 +118,7 @@ class App extends Component {
           </Right>
         </Header>
         <Content>
+        <Button onPress={() => this.props.navigation.navigate('Home')}><Text>Click</Text></Button>
           {modal}
           <ListItemComponent places={this.state.places} onItemPressed={this.filterItemOnPress} />
         </Content>
@@ -122,4 +127,33 @@ class App extends Component {
   }
 }
 
-export default App;
+
+class HomeScreen extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button onPress={() => this.props.navigation.navigate('Details')}><Text>Click</Text></Button>
+      </View>
+    );
+  }
+}
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Details: App,
+  },
+  {
+    initialRouteName: 'Details',
+    headerMode: "none"
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class AppBonanza extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
