@@ -1,0 +1,6 @@
+export const ADD_HOLDING = 'ADD_HOLDING';
+export const REMOVE_HOLDING = 'REMOVE_HOLDING';
+export const UPDATE_HOLDING = 'UPDATE_HOLDING';
+
+export const ERROR_HOLDING = 'ERROR_HOLDING';
+export const ADD_HOLDING_START = 'ADD_HOLDING_START';

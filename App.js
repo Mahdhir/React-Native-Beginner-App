@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import {connect} from 'react-redux';
 
 import {
   Container, Header, Title,
@@ -152,8 +153,10 @@ const RootStack = createStackNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 
-export default class AppBonanza extends Component {
+class AppBonanza extends Component {
   render() {
     return <AppContainer />;
   }
 }
+
+export default connect()(AppBonanza);
