@@ -1,5 +1,7 @@
 export {
     removeHolding,
-    updateHolding,
-    addHoldingInitial
+    updateHoldingInitial,
+    addHoldingInitial,
+    errorHoldingClear,
+    onInitialLoad
 } from './holding';

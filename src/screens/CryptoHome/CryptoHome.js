@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
-import {Container,Content,Footer,Text} from 'native-base';
-import {StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { Container, Content, Footer, Text } from 'native-base';
+import { StyleSheet, RefreshControl } from 'react-native';
 import Header from '../../components/BTC_Header/BTC_Header';
 // import Item from '../../components/BTC_Item/BTC_Item';
 import Items from '../../components/BTC_Items/BTC_Items';
@@ -12,14 +12,26 @@ class Crypto extends Component {
     }
 
 
+    componentDidMount(){
+        console.log('I mounted for the first time');
+        this.props.onInitialLoad();
+    }
+
+
     render() {
         const title = "Crypto Tracker";
-        
+
         return (
             <Container>
                 <Header title={title} screen="home" clicked={this.goToAddPageHandler} />
-                <Content>
-                    <Items/>
+                <Content refreshControl={
+                    <RefreshControl
+                        refreshing={this.props.isRefreshing}
+                        onRefresh={() => this.props.onUpdate(this.props.holdings)}
+                        title="Loading..."
+                    />
+                }>
+                    <Items />
                 </Content>
                 <Footer style={styles.footer}>
                     <Text style={styles.text}><Text style={styles.boldText}>Disclaimer:</Text> Do not use this application to make investment decisions. Displayed prices may not reflect actual prices.</Text>

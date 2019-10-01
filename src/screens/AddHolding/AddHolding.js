@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Content, Footer,Text,View } from 'native-base';
+import { Container, Content, Footer,Text,Spinner } from 'native-base';
 import {StyleSheet} from 'react-native';
 import Header from '../../components/BTC_Header/BTC_Header';
 import Note from '../../components/BTC_Note/BTC_Note';
 import Form from '../../components/BTC_Form/BTC_Form';
+import ErrorMsg from '../../components/BTC_AddHoldingError/BTC_AddHoldingError';
 
 export default class AddHolding extends Component {
     backHandler=()=>{
@@ -12,18 +13,41 @@ export default class AddHolding extends Component {
 
     addHolding = (values)=>{
         this.props.onAdd(values);
-        this.backHandler();
+    }
+
+    componentDidMount(){
+        this.props.onErrorClear();
+    }
+
+    componentWillUnmount(){
+        this.props.onErrorClear();
+    }
+
+    componentDidUpdate(){
+        if(this.props.addHoldingFinish && !this.props.error ){
+            this.backHandler();
+        }
     }
 
 
     render() {
         const title = "Add Holding";
+        let errorMsg = null;
+        if(this.props.error){
+            errorMsg=<ErrorMsg/>;
+        }
+        let spinner = null;
+        if(this.props.addHoldingStart){
+            spinner = <Spinner/>
+        }
         return (
             <Container>
                 <Header title={title} screen="add_holding"  back={this.backHandler}/>
                 <Content style={styles.content}>
                     <Note/>
                     <Form submit={(values)=>this.addHolding(values)} />
+                    {errorMsg}
+                    {spinner}
                 </Content>
                 <Footer style={styles.footer}>
                 <Text style={styles.text}><Text style={styles.boldText}>Note:</Text> 

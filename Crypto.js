@@ -8,30 +8,36 @@ import reducers from './src/store/reducers/holding';
 import * as actions from './src/store/actions/index';
 import AddHolding from './src/screens/AddHolding/AddHolding';
 import Crypto from './src/screens/CryptoHome/CryptoHome';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
 const mapDispatchToPropsHome = (dispatch) => {
     return {
-        onUpdate: (result) => { dispatch(actions.updateHolding(result)) },
-        onRemove:(id) => {dispatch(actions.removeHolding(id))}
+        onUpdate: (currentHolding) => { dispatch(actions.updateHoldingInitial(currentHolding)) },
+        onRemove:(id) => {dispatch(actions.removeHolding(id))},
+        onInitialLoad:() => {dispatch(actions.onInitialLoad())}
     }
 }
 
 const mapStateToPropsHome = (state) => {
     return {
-        holdings: state.holdingPage.holdings
+        holdings: state.holdingPage.holdings,
+        isRefreshing : state.holdingPage.isRefreshing
     }
 }
 
 const mapDispatchToPropsAdd = (dispatch) => {
     return {
-        onAdd:(data) => {dispatch(actions.addHoldingInitial(data))}
+        onAdd:(data) => {dispatch(actions.addHoldingInitial(data))},
+        onErrorClear:() => {dispatch(actions.errorHoldingClear())}
     }
 }
 
 const mapStateToPropsAdd = (state) => {
     return {
         holdings: state.holdingPage.holdings,
-        error:state.holdingPage.error
+        error:state.holdingPage.error,
+        addHoldingStart:state.holdingPage.addHoldingStart,
+        addHoldingFinish:state.holdingPage.addHoldingFinish
     }
 }
 
@@ -62,7 +68,7 @@ const reducer = combineReducers({
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer,composeEnhancers(
+const store = createStore(reducer,composeWithDevTools(
     applyMiddleware(thunk)
 ));
 

@@ -6,7 +6,7 @@ import {StyleSheet} from "react-native";
 const BTC_Form = (props) => {
     return (
         <Formik
-            initialValues={{ code: '', currency: '' }}
+            initialValues={{ base: '', target: '' }}
             onSubmit={values => {
                 const obj = {
                     ...values,
@@ -18,20 +18,21 @@ const BTC_Form = (props) => {
             <Form style={styles.form}>
                 <Item stackedLabel>
                     <Label style={styles.lbl}>Crypto Code</Label>
-                    <Input onChangeText={props.handleChange('code')}
-                        onBlur={props.handleBlur('code')}
+                    <Input onChangeText={props.handleChange('base')}
+                        onBlur={props.handleBlur('base')}
                         placeholder="(e.g. BTC,LTC,ETH)"
                     />
                 </Item>
                 <Item stackedLabel last>
                     <Label style={styles.lbl}>Display Currency Code</Label>
-                    <Input onChangeText={props.handleChange('currency')}
-                        onBlur={props.handleBlur('currency')}
+                    <Input onChangeText={props.handleChange('target')}
+                        onBlur={props.handleBlur('target')}
                     placeholder="(e.g. USD,CAD,AUD)" />
                 </Item>
                 <Button style={styles.btn} full onPress={props.handleSubmit}>
                     <Text>Submit</Text>
                 </Button>
+                
             </Form>
         )}
         </Formik>
@@ -41,7 +42,7 @@ const BTC_Form = (props) => {
 const styles = StyleSheet.create({
     btn:{
         marginTop:15,
-        backgroundColor:'#444445'
+        backgroundColor:'#616480'
     },
     lbl:{
         fontSize:12
