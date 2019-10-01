@@ -4,6 +4,8 @@ import { StyleSheet, RefreshControl } from 'react-native';
 import Header from '../../components/BTC_Header/BTC_Header';
 // import Item from '../../components/BTC_Item/BTC_Item';
 import Items from '../../components/BTC_Items/BTC_Items';
+import SplashScreen from 'react-native-splash-screen'
+
 
 class Crypto extends Component {
 
@@ -14,6 +16,7 @@ class Crypto extends Component {
 
     componentDidMount(){
         console.log('I mounted for the first time');
+        SplashScreen.hide();
         this.props.onInitialLoad();
     }
 
