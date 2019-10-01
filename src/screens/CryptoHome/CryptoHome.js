@@ -5,7 +5,7 @@ import Header from '../../components/BTC_Header/BTC_Header';
 // import Item from '../../components/BTC_Item/BTC_Item';
 import Items from '../../components/BTC_Items/BTC_Items';
 import SplashScreen from 'react-native-splash-screen'
-
+import AddNote from '../../components/BTC_AddHoldingNote/BTC_AddHoldingNote';
 
 class Crypto extends Component {
 
@@ -23,7 +23,10 @@ class Crypto extends Component {
 
     render() {
         const title = "Crypto Tracker";
-
+        let note = null;
+        if(this.props.holdings.length==0){
+            note = <AddNote clicked={this.goToAddPageHandler}/>
+        }
         return (
             <Container>
                 <Header title={title} screen="home" clicked={this.goToAddPageHandler} />
@@ -34,6 +37,7 @@ class Crypto extends Component {
                         title="Loading..."
                     />
                 }>
+                    {note}
                     <Items />
                 </Content>
                 <Footer style={styles.footer}>
